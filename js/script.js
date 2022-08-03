@@ -122,7 +122,45 @@ $(function () {
   // $("p:first").empty();
 
   //remove text inside boxes
-  $(".red-box, .blue-box, .green-box").empty();
+  // $(".red-box, .blue-box, .green-box").empty();
 
+  // attr(), prop(), val()
+  // const specialLink = $("#special-link");
 
+  // console.log(specialLink.attr("href"));
+
+  // specialLink.attr("href", "http://petersomerhoff.com");
+
+  // const checkbox = $("input:checkbox");
+  // console.log(checkbox.prop("checked"));
+  // console.log(checkbox.attr("checked"));
+
+  //attr(), prop(), val()
+
+  //val() retrieves value of element
+  // const textInput = $("input:text");
+  // textInput.val("Peter Sommerhoff");
+  // console.log(textInput.val());
+
+  // const rangeInput = $("input[type='range']");
+  // console.log(rangeInput.val());
+
+  //simple slider
+  const galleryImage = $(".gallery").find("img").first();
+  const images = [
+    "images/laptop-mobile_small.jpg",
+    "images/laptop-on-table_small.jpg",
+    "images/people-office-group-team_small.jpg"
+  ];
+
+  let i = 0;
+
+  setInterval(function () {
+    i = (i + 1) % images.length;
+    galleryImage.fadeOut(function () {
+      $(this).attr("src", images[i]);
+      $(this).fadeIn();
+    });
+    console.log(galleryImage.attr("src"));
+  }, 2000)
 });
