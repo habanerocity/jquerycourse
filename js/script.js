@@ -146,14 +146,14 @@ $(function () {
   // console.log(rangeInput.val());
 
   //simple slider
-  // const galleryImage = $(".gallery").find("img").first();
-  // const images = [
-  //   "images/laptop-mobile_small.jpg",
-  //   "images/laptop-on-table_small.jpg",
-  //   "images/people-office-group-team_small.jpg"
-  // ];
+  const galleryImage = $(".gallery").find("img").first();
+  const images = [
+    "images/laptop-mobile_small.jpg",
+    "images/laptop-on-table_small.jpg",
+    "images/people-office-group-team_small.jpg"
+  ];
 
-  // let i = 0;
+  let i = 0;
 
   // setInterval(function () {
   //   i = (i + 1) % images.length;
@@ -166,7 +166,7 @@ $(function () {
 
   //jquery does not recognize !important
 
-  $(".gallery").css("display", "none");
+  // $(".gallery").css("display", "none");
 
   // const redBox = $(".red-box");
   // console.log(redBox.css("width"));
@@ -218,14 +218,92 @@ $(function () {
 
   //text(), html()
   const firstPar = $("p:first");
-  console.log(firstPar.text());
-  console.log(firstPar.html());
+  // console.log(firstPar.text());
+  // console.log(firstPar.html());
 
   firstPar.html("<strong>Hello</strong> world!");
 
   //append some text to the first paragraph 
 
-  firstPar.html(firstPar.html() + "<p>this is some appended text</p>");
+  // firstPar.html(firstPar.html() + "<p>this is some appended text</p>");
 
+  // $("#btn-click").click(function (e) {
+  //   console.log(e);
+  //   alert("button was clicked!");
+  // })
 
+  //add click listener to red box and fade to 50% opacity
+  $(".red-box").css("cursor", "pointer").click(function () {
+    $(".red-box").fadeTo(500, 0.5);
+  });
+
+  //use case where you trigger your own event
+  // $(".red-box").click();
+
+  //hover event fires on mouseenter and mouseleave
+  // $("#btn-hover").hover(function () {
+  //   alert("Button was hovered");
+  // });
+
+  //select green box and when hovered change text to i was hovered
+  $(".green-box").hover(function () {
+    $(this).text("I was hovered");
+  })
+
+  const blueBox = $(".blue-box");
+
+  // blueBox.mouseenter(function () {
+  //   $(this).stop().fadeTo(500, 0.7);
+  // });
+
+  // blueBox.mouseleave(function () {
+  //   $(this).stop().fadeTo(500, 1);
+  // })
+
+  //hover (handlerIn, handlerOut)
+  blueBox.hover(function () {
+    $(this).stop().fadeTo(500, 0.7);
+  }, function () {
+    $(this).stop().fadeTo(500, 1);
+  })
+
+  function logEvent() {
+    console.log("mouse was clicked or a key was pressed");
+  };
+
+  function sliderLogic() {
+    i = (i + 1) % images.length;
+
+    galleryImage.fadeOut(function () {
+      $(this).attr("src", images[i]).fadeIn();
+    });
+  }
+
+  // .on("click", function(){})
+  //multiple event listeners
+  $("html").on("click keydown", logEvent);
+
+  //switch image in the gallery once the image is clicked, use on function
+  $(".gallery").on("click", sliderLogic);
+
+  // $("p").click(function () {
+  //   $(this).slideUp();
+  // });
+
+  // $("#content").append("<p>This is a dynanmically added paragraph.</p>");
+
+  //delegated events.  All <p> descendents will be delegated the click event.
+  $("#content").on("click", "p", function () {
+    //this is now pointing to p elements
+    $(this).slideUp();
+  });
+
+  $("#content").append("<p>This is a dynanmically added paragraph.</p>");
+
+  //add event handler for mouseenter events on the body tag, which will delegate to all the li tags.  
+  //when mouse enters body font should change color
+
+  $("body").on("mouseenter", "li", function () {
+    $(this).css("color", "green")
+  })
 });
